@@ -5,20 +5,48 @@
   "projectType": "library",
   "targets": {
     "build": {
-      "executor": "@nrwl/js:tsc",
-      "outputs": ["{options.outputPath}"],
+      "executor": "nx:run-commands",
       "options": {
-        "outputPath": "dist/packages/astro-responsive-image",
-        "main": "packages/astro-responsive-image/src/index.ts",
-        "tsConfig": "packages/astro-responsive-image/tsconfig.lib.json",
-        "assets": ["packages/astro-responsive-image/*.md"]
+        "commands": [
+          {
+            "command": "echo Hooray"
+          }
+        ],
+        "parallel": false
       }
+    },
+    "dev": {
+      "executor": "nx:run-commands",
+      "dependsOn": ["build"],
+      "options": {
+        "commands": [
+          {
+            "command": "nx run astro-responsive-image:build-base --watch"
+          }
+        ],
+        "parallel": false
+      }
+    },
+    "build-base": {
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "main": "packages/astro-responsive-image/src/index.ts",
+        "updateBuildableProjectDepsInPackageJson": true,
+        "buildableProjectDepsInPackageJsonType": "dependencies"
+      }
+    },
+    "publish": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "npm publish build/packages/astro-responsive-image"
+      },
+      "dependsOn": ["build"]
     },
     "lint": {
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/astro-responsive-image/**/*.ts"]
+        "lintFilePatterns": ["packages/astro/responsive-image/**/*.ts"]
       }
     },
     "test": {

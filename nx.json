@@ -1,6 +1,11 @@
 {
   "$schema": "./node_modules/nx/schemas/nx-schema.json",
   "npmScope": "deployday",
+  "pluginsConfig": {
+    "@nrwl/js": {
+      "analyzeSourceFiles": true
+    }
+  },
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -12,8 +17,63 @@
   },
   "targetDefaults": {
     "build": {
-      "dependsOn": ["^build"],
+      "dependsOn": [{
+        "target": "build-base",
+        "projects": "self",
+        "params": "forward"
+      }],
       "inputs": ["production", "^production"]
+    },
+    "build-base": {
+      "dependsOn": ["^build-base"],
+      "inputs": ["production", "^production"],
+      "executor": "@nrwl/js:tsc",
+      "options": {
+        "outputPath": "build/{projectRoot}",
+        "tsConfig": "{projectRoot}/tsconfig.lib.json",
+        "main": "{projectRoot}/index.ts",
+        "updateBuildableProjectDepsInPackageJson": false,
+        "assets": [
+          {
+            "input": "{projectRoot}",
+            "glob": "**/files/**",
+            "output": "/"
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "**/files/**/.gitkeep",
+            "output": "/"
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "**/*.json",
+            "ignore": ["**/tsconfig*.json", "project.json", ".eslintrc.json"],
+            "output": "/"
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "**/*.js",
+            "ignore": ["**/jest.config.js"],
+            "output": "/"
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "**/*.d.ts",
+            "output": "/"
+          },
+          {
+            "input": "",
+            "glob": "LICENSE",
+            "output": "/"
+          },
+          {
+            "input": "{projectRoot}",
+            "glob": "**/*.md",
+            "output": "/"
+          }
+        ]
+      },
+      "outputs": ["{options.outputPath}"]
     },
     "lint": {
       "inputs": [
@@ -40,5 +100,6 @@
   "workspaceLayout": {
     "appsDir": "packages",
     "libsDir": "packages"
-  }
+  },
+  "defaultProject": "astro-responsive-image"
 }

@@ -1,10 +1,15 @@
 /* eslint-disable */
-export default {
+import type { Config } from 'jest';
+import { defaults } from 'jest-config';
+const config: Config = {
+  moduleFileExtensions: [...defaults.moduleFileExtensions, 'mts', 'html'],
   displayName: 'astro-responsive-image',
+  collectCoverage: true,
+  coverageReporters: ['json', 'html', 'lcov'],
   preset: '../../jest.preset.js',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
-  moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/packages/astro-responsive-image',
+  coverageDirectory: '<rootDir>/../../coverage/packages/astro-responsive-image',
 };
+export default config;

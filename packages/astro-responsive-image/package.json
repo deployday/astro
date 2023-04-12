@@ -1,5 +1,12 @@
 {
-  "name": "@deployday/astro-responsive-image",
-  "version": "0.0.1",
-  "type": "commonjs"
+  "name": "astro-responsive-image",
+  "version": "0.0.11",
+  "type": "commonjs",
+  "keywords": [
+    "astro-integration",
+    "astro"
+  ],
+  "publishConfig": {
+    "access": "public"
+  }
 }
