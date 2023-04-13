@@ -5,7 +5,6 @@ import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import sharp from 'sharp';
 import { mkdirp } from 'mkdirp';
-// import { loadImage } from '@astro-nx-depla/shared/util/image';
 
 const defaultSizes = [767, 1023, 2040];
 
@@ -84,9 +83,7 @@ const build = async ({
   for (const file of filesToProcess) {
     console.log(file.path);
     console.log(paths.src, 'SAASDASD');
-    // const img = await loadImage(file.path);
     console.log('=========');
-    // console.log(img);
     const source = path.join(paths.src, file.path);
     const destination = getDestinationFilePathless(file.path, 'x');
     const madeDir = await mkdirp(path.dirname(destination));

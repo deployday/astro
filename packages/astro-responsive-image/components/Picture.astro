@@ -17,10 +17,7 @@ interface HasWidths extends LocalImage {
 export type Props = HasWidth | HasWidths;
 
 import { Image, getImage } from 'astro:assets';
-import { loadImage, getRenderedImage } from '@astro-nx-depla/shared/util/image';
-
-/* const img = await getRenderedImage('~/assets/images/hero.png', getImage, {}); */
-/* console.log('IIIIIMMMMMGG=====', img); */
+import { loadImage } from '../src/lib/picture.js';
 
 const {
   src,
