@@ -159,6 +159,16 @@ const createResponsiveImageIntegration = ({
   return {
     name: 'astro-responsive-image',
     hooks: {
+      'astro:config:setup': ({ updateConfig }) => {
+        updateConfig({
+          image: {
+            service: 'astro/assets/services/sharp',
+          },
+          experimental: {
+            assets: true,
+          },
+        });
+      },
       'astro:build:done': async ({ dir, routes }) => {
         const paths = {
           src: fileURLToPath(new URL(`./_astro`, dir)),
