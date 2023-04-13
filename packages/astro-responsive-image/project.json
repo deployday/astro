@@ -9,7 +9,7 @@
       "options": {
         "commands": [
           {
-            "command": "echo Hooray"
+            "command": "cp -r ./packages/astro-responsive-image/components ./build/packages/astro-responsive-image; echo Hooray"
           }
         ],
         "parallel": false
@@ -30,7 +30,6 @@
     "build-base": {
       "executor": "@nrwl/js:tsc",
       "options": {
-        "main": "packages/astro-responsive-image/src/index.ts",
         "updateBuildableProjectDepsInPackageJson": true,
         "buildableProjectDepsInPackageJsonType": "dependencies"
       }
@@ -46,7 +45,7 @@
       "executor": "@nrwl/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["packages/astro/responsive-image/**/*.ts"]
+        "lintFilePatterns": ["packages/astro-responsive-image/**/*.ts"]
       }
     },
     "test": {
@@ -62,6 +61,9 @@
           "codeCoverage": true
         }
       }
+    },
+    "check": {
+      "executor": "@nxtensions/astro:check"
     }
   },
   "tags": []

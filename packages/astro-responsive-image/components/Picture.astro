@@ -1,0 +1,114 @@
+---
+interface LocalImage {
+  src: string;
+}
+interface HasWidth extends LocalImage {
+  width: number;
+  height: number;
+  widths?: never;
+}
+
+interface HasWidths extends LocalImage {
+  widths: number[];
+  width?: never;
+  height?: never;
+}
+
+export type Props = HasWidth | HasWidths;
+
+import { Image, getImage } from 'astro:assets';
+import { loadImage, getRenderedImage } from '@astro-nx-depla/shared/util/image';
+
+/* const img = await getRenderedImage('~/assets/images/hero.png', getImage, {}); */
+/* console.log('IIIIIMMMMMGG=====', img); */
+
+const {
+  src,
+  alt,
+  loading = 'lazy',
+  decoding = 'async',
+  format = 'webp',
+  width,
+  height,
+  ...props
+} = Astro.props;
+const aspectRatio = width / height;
+const widths = [767, 1023, 2040];
+
+console.log('ASSSTTRRRRROOO!!!', Astro.props);
+
+/* const image = await getImage({ */
+/*   src, */
+/*   width, */
+/*   height, */
+/*   format, */
+/* }); */
+
+const image = await loadImage(src);
+
+console.log('=====----!!!!!', image);
+interface ResponsiveAttrs extends Partial<ImageComponentRemoteImageProps> {
+  srcset?: string;
+}
+
+const responsiveAttrs: ResponsiveAttrs = {};
+
+if (image && widths) {
+  const srcset = await Promise.all(
+    widths.map(async (width: number) => {
+      const obj = {
+        src: image.src,
+        width,
+        height: width / aspectRatio,
+        format,
+        quality: 'low',
+      };
+      console.log('*((&*(&(*&(*&(* GENERATING IMAGE WITH FOLLOWING PROPS', obj);
+      const res = await getImage(obj);
+      console.log('++_+_+_+_+ GOT FOLLOWING RES', res);
+
+      if (res.src) {
+        return `${decodeURI(`/_img/${width}/${image.id}`)} ${width}w`;
+      }
+
+      return '';
+    })
+  );
+
+  responsiveAttrs.srcset = srcset.join(', ');
+  responsiveAttrs.aspectRatio = aspectRatio;
+}
+
+/* const attrs = await getImage({ */
+/*   src: image, */
+/*   format, */
+/*   height, */
+/*   ...props, */
+/* }); */
+
+const imgProps = {
+  ...image,
+  src: `/_img/x/${image.id}`,
+  loading,
+  decoding,
+  alt,
+  ...props,
+  ...responsiveAttrs,
+};
+---
+
+<div>
+  {
+    image !== null && import.meta.env.MODE !== 'development' ? (
+      <img {...imgProps} />
+    ) : (
+      <Image
+        src={image.src}
+        width={width}
+        format={format}
+        height={parseInt(width / aspectRatio, 10)}
+        alt={alt}
+      />
+    )
+  }
+</div>

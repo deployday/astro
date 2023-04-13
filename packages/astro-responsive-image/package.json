@@ -1,12 +1,20 @@
 {
   "name": "astro-responsive-image",
-  "version": "0.0.12",
-  "type": "commonjs",
+  "version": "0.0.13",
+  "type": "module",
   "keywords": [
     "astro-integration",
     "astro"
   ],
   "publishConfig": {
     "access": "public"
+  },
+  "files": [
+    "components",
+    "src"
+  ],
+  "exports": {
+    ".": "./src/index.js",
+    "./components": "./components/index.js"
   }
 }

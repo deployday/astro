@@ -1,25 +1,24 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "rootDir": ".",
+    "target": "esnext",
     "sourceMap": true,
-    "declaration": false,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
     "importHelpers": true,
-    "target": "es2015",
     "module": "esnext",
-    "lib": ["es2017", "dom"],
-    "skipLibCheck": true,
-    "skipDefaultLibCheck": true,
+    "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "outDir": "build",
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "types": ["node", "jest"],
+    "declaration": true,
+    "resolveJsonModule": true,
     "baseUrl": ".",
+    "rootDir": ".",
+    "allowJs": true,
     "paths": {
-      "@deployday/astro-responsive-image": [
-        "packages/astro-responsive-image/src/index.ts"
-      ]
+      "astro-responsive-image": ["packages/astro-responsive-image/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

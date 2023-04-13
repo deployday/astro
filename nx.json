@@ -1,11 +1,12 @@
 {
-  "$schema": "./node_modules/nx/schemas/nx-schema.json",
-  "npmScope": "deployday",
+  "plugins": ["@nxtensions/astro"],
   "pluginsConfig": {
     "@nrwl/js": {
       "analyzeSourceFiles": true
     }
   },
+  "$schema": "./node_modules/nx/schemas/nx-schema.json",
+  "npmScope": "deployday",
   "tasksRunnerOptions": {
     "default": {
       "runner": "@nrwl/nx-cloud",
@@ -31,7 +32,7 @@
       "options": {
         "outputPath": "build/{projectRoot}",
         "tsConfig": "{projectRoot}/tsconfig.lib.json",
-        "main": "{projectRoot}/index.ts",
+        "main": "{projectRoot}/src/index.ts",
         "updateBuildableProjectDepsInPackageJson": false,
         "assets": [
           {
@@ -84,6 +85,9 @@
     },
     "test": {
       "inputs": ["default", "^production", "{workspaceRoot}/jest.preset.js"]
+    },
+    "e2e": {
+      "inputs": ["default", "^production"]
     }
   },
   "namedInputs": {

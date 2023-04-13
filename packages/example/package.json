@@ -1,0 +1,7 @@
+{
+  "name": "example",
+  "private": true,
+  "dependencies": {
+    "astro-responsive-image": "^0.0.11"
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "name": "example",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "sourceRoot": "packages/example/src",
+  "targets": {
+    "build": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": [
+          "cp packages/example/package.json build/packages/example",
+          "npm install --prefix ./build/packages/example"
+        ]
+      },
+      "dependsOn": ["build-base"]
+    },
+    "build-base": {
+      "outputs": ["{workspaceRoot}/build/{projectRoot}"],
+      "executor": "@nxtensions/astro:build",
+      "options": {
+      },
+      "dependsOn": []
+    },
+    "dev": {
+      "executor": "@nxtensions/astro:dev",
+      "options": {}
+    },
+    "preview": {
+      "dependsOn": [
+        {
+          "target": "build",
+          "projects": "self"
+        }
+      ],
+      "executor": "@nxtensions/astro:preview",
+      "options": {}
+    },
+    "check": {
+      "executor": "@nxtensions/astro:check"
+    },
+    "sync": {
+      "executor": "@nxtensions/astro:sync"
+    }
+  },
+  "tags": []
+}
