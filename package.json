@@ -2,7 +2,12 @@
   "name": "astro",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build": "nx run-many --target build --all --parallel 100",
+    "test": "nx run-many --target test --all --parallel 100",
+    "publish": "nx run-many --target publish --all --parallel 100 --clear-cache",
+    "start": "npx nx affected:build --watch --parallel --maxParallel=100 --all"
+  },
   "private": true,
   "dependencies": {
     "mkdirp": "^3.0.0",
