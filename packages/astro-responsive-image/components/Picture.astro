@@ -25,12 +25,15 @@ const {
   loading = 'lazy',
   decoding = 'async',
   format = 'webp',
-  width,
   height,
+  classNames = '',
   ...props
 } = Astro.props;
-const aspectRatio = width / height;
+
 const widths = [767, 1023, 2040];
+const widthOriginal = props.width;
+const width = widthOriginal ? widthOriginal : widths[0];
+const aspectRatio = width / height;
 
 console.log('ASSSTTRRRRROOO!!!', Astro.props);
 
@@ -97,13 +100,14 @@ const imgProps = {
 <div>
   {
     image !== null && import.meta.env.MODE !== 'development' ? (
-      <img {...imgProps} />
+      <img {...imgProps} class:list={classNames} />
     ) : (
       <Image
         src={image.src}
         width={width}
         format={format}
         height={parseInt(width / aspectRatio, 10)}
+        class:list={classNames.split(' ')}
         alt={alt}
       />
     )
