@@ -1,0 +1,15 @@
+{
+  "name": "astro-copy",
+  "version": "0.0.8",
+  "type": "module",
+  "keywords": [
+    "astro-integration",
+    "astro"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "exports": {
+    ".": "./src/index.js"
+  }
+}

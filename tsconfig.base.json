@@ -18,6 +18,7 @@
     "rootDir": ".",
     "allowJs": true,
     "paths": {
+      "astro-copy": ["packages/astro-copy/src/index.ts"],
       "astro-responsive-image": ["packages/astro-responsive-image/src/index.ts"]
     }
   },
